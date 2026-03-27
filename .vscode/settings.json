@@ -1,0 +1,83 @@
+{
+    // Run the LaTeX compiler on file save
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    // Save the output files in the build folder
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build",
+    // Use latexmk as the default recipe; replace by "latexmk (lualatex)" for
+    // LuaLaTeX, a more modern alternative.
+    "latex-workshop.latex.recipe.default": "latexmk (shell-escape)",
+    "latex-workshop.formatting.latex": "tex-fmt",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "latexmk (shell-escape)",
+            "tools": [
+                "latexmkshellescape"
+            ]
+        },
+        {
+            "name": "latexmk (lualatex)",
+            "tools": [
+                "lualatexmk"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "latexmkshellescape",
+            "command": "latexmk",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "lualatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-lualatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+    ],
+    "ltex.latex.commands": {
+        "\\thecontrib": "dummy",
+        "\\Call{}": "ignore",
+        "\\Procedure{}": "ignore",
+        "\\footcite{}": "ignore",
+        "\\footcite*{}": "ignore",
+        "\\usetheme[]{}": "ignore",
+        "\\usecolortheme{}": "ignore",
+        "\\setbeamertemplate{}[]": "ignore",
+    },
+    
+}

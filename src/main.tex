@@ -1,0 +1,136 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usetheme[
+    progressbar=foot,
+    titleformat frame=smallcaps,
+    sectionpage=none,
+    subsectionpage=none,
+    titlepage style=fancy,
+]{snt}
+
+\setbeamertemplate{page number in head/foot}[appendixframenumber]
+\setbeamertemplate{section}[sections numbered]
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tgheros}
+
+\usepackage[export]{adjustbox} % Enable positioning options for \includegraphics
+
+\usepackage[mode=buildnew]{standalone}
+\renewcommand<>{\includestandalone}[2][]{%
+  \only#3{\beameroriginal{\includestandalone}[#1]{#2}}%
+}
+
+
+\usepackage[
+    sorting=none,
+]{biblatex}
+\addbibresource{references.bib}
+\addbibresource{lavaur.bib}
+\renewcommand{\bibfont}{\footnotesize}
+
+\usepackage{caption}
+\captionsetup{font=small}
+
+\usepackage{booktabs}
+\usepackage{transparent}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+
+\usepackage{tabularx}
+\usepackage{multirow}
+
+\usepackage[acronym]{glossaries}
+\glsdisablehyper
+\loadglsentries{glossary}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,trees}
+
+\usepackage[french,english]{babel}
+\usepackage{csquotes}
+
+\usepackage[outputdir=../build]{minted}
+
+
+
+\usepackage{useful}
+
+% Draw.io colors
+\definecolor{drawio/fill-gray}{HTML}{F5F5F5}
+\definecolor{drawio/fill-blue}{HTML}{DAE8FC}
+\definecolor{drawio/fill-green}{HTML}{D5E8D4}
+\definecolor{drawio/fill-orange}{HTML}{FFE6CC}
+\definecolor{drawio/fill-yellow}{HTML}{FFF2CC}
+\definecolor{drawio/fill-red}{HTML}{F8CECC}
+\definecolor{drawio/fill-purple}{HTML}{E1D5E7}
+\definecolor{drawio/border-gray}{HTML}{666666}
+\definecolor{drawio/border-blue}{HTML}{6C8EBF}
+\definecolor{drawio/border-green}{HTML}{82B366}
+\definecolor{drawio/border-orange}{HTML}{D79B00}
+\definecolor{drawio/border-yellow}{HTML}{D6B656}
+\definecolor{drawio/border-red}{HTML}{B85450}
+\definecolor{drawio/border-purple}{HTML}{9673A6}
+
+\definecolor{contrib/eiffel}{HTML}{FFE599}
+\definecolor{contrib/radar}{HTML}{F19C99}
+\definecolor{contrib/feditn}{HTML}{B9E0A5}
+\definecolor{contrib/slr}{HTML}{C4D1E3}
+\definecolor{contrib/waterllmarks}{HTML}{ac9cc1}
+\definecolor{contrib/logic}{HTML}{efc497}
+\definecolor{contrib/flb}{HTML}{F8CECC}
+
+\makeatletter
+\DeclareRobustCommand\circled[2]{%
+  \tikz[baseline=(char.base)]{
+    \node[
+      shape=circle, fill=#1, text=white, font=\sffamily\bfseries,
+      minimum size=\f@size*1.2 pt,
+      inner sep=0pt,
+    ] (char) {\makebox[0pt][c]{#2}}; }}
+\makeatother
+
+\DeclareRobustCommand\slr{\circled{contrib/slr}{S}\xspace}
+\DeclareRobustCommand\eiffel{\circled{contrib/eiffel}{E}\xspace}
+\DeclareRobustCommand\radar{\circled{contrib/radar}{R}\xspace}
+\DeclareRobustCommand\feditn{\circled{contrib/feditn}{F}\xspace}
+\DeclareRobustCommand\waterllmarks{\circled{contrib/waterllmarks}{W}\xspace}
+\DeclareRobustCommand\logic{\circled{contrib/logic}{L}\xspace}
+\DeclareRobustCommand\flb{\circled{contrib/flb}{FLB}\xspace}
+
+
+\title{Tools for Intrusion Detection in Distributed Systems}
+
+\author{\texorpdfstring{Léo Lavaur \boldmath{$\cdot$} SnT, University of Luxembourg}{Léo Lavaur, SnT, University of Luxembourg}}
+
+\date{March 27\textsuperscript{th}\kern-0.4em, 2026\\[2pt]%
+\footnotesize \foreignlanguage{french}{Seminar at SoSySec}, IRISA, Rennes}
+
+
+\begin{document}
+
+\maketitle
+
+\input{sections/10_intro.tex}
+\input{sections/20_phd.tex}
+\input{sections/30_postdoc.tex}
+\input{sections/40_conclusion.tex}
+
+
+\appendix
+
+\begin{frame}[allowframebreaks]{References}
+    \printbibliography[heading=none]
+\end{frame}
+
+\section*{Backup slides}
+
+\begin{frame}
+  \sectionpage
+\end{frame}
+
+
+\input{sections/90_appendix.tex}
+
+\end{document}

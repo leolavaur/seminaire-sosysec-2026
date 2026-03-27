@@ -1,0 +1,112 @@
+
+% FIDS Definition and Limitations
+% ------------------------------------------------------------------------------
+
+\section{FIDS Definition and Limitations}
+
+\begin{frame}
+  \sectionpage
+
+  \footcite*{lavaur_tnsm_2022}
+  \footcite*{lavaur_cesar_2022}
+  \footcite*{lavaur_icdcs_demo_2024}
+\end{frame}
+
+
+\begin{frame}{State of the Art}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \textbf{Systematic Literature Review (SLR)}~\autocite{lavaur_tnsm_2022}
+      \begin{itemize}
+        \item Booming topic over the last 4--5 years.
+        \item<2-> Very heterogeneous venues and communities.
+        \item<3-> Often considered not as a topic, but\dots
+        \begin{itemize}
+          \item \dots{}as an application domain for FL;.
+          \item \dots{}as a tool for collaborative IDSs (CIDSs) in different use cases (e.g., IT networks, IoT, AVs).
+        \end{itemize}
+      \end{itemize}
+      
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \only<1>{%
+          \resizebox{.9\linewidth}{!}{\input{figures/thesis/fids/year_histogram.pgf}}
+          \caption{Evolution of the number of publications on FIDSs (until 2024-04).}    
+        }
+        \only<2->{%
+          \resizebox{\linewidth}{!}{\input{figures/thesis/fids/domain_pie.pgf}}
+          \caption{Distribution of application domains.}
+        }
+      \end{figure}
+    \end{column}
+      
+  \end{columns}
+
+  \footcite*{lavaur_tnsm_2022}
+
+\end{frame}
+
+\begin{frame}{Federated Intrusion Detection Systems (FIDSs)}
+
+  \begin{block}{Definition}
+    \textit{Distributed IDSs with privacy-preserving federated knowledge.}
+    FIDSs leverage FL or similar distributed learning techniques to share and aggregate the models trained locally with other members of the federation.
+  \end{block}
+
+  \begin{itemize}
+    \item<2-> Taxonomy along four axes: \textbf{Data}, \textbf{Local Operation}, \textbf{Federation}, and \textbf{Aggregation}~\autocite{lavaur_tnsm_2022}.
+    \item<2-> Reference architecture for FIDSs.
+    
+    % \item<3-> Training can happen offline on labelled data, online, or with a combination of both.
+
+    % \item<4-> Federations can be closed (i.e., all participants are identified and trusted) or open (i.e., participants can join and leave the federation at any time).
+    
+  \end{itemize}
+
+  \only<2->{\footcite*{lavaur_tnsm_2022}}
+
+\end{frame}
+
+\begin{frame}{Limitations of FIDSs}
+  
+  \textbf{Challenges from the SLR}~\cite{lavaur_tnsm_2022}
+  \begin{itemize}
+    \item Functionality: \emph{performance}, \emph<1>{\alert<2>{heterogeneity}}, \emph<1>{\alert<2>{transferability}}, \emph{self-defense} and \emph{self-healing}.
+    \item Deployment: \emph{adaptability} and \emph{scalability}.
+    \item Security and reliability: \emph{security}, \emph{privacy}, \emph<1>{\alert<2>{trust}} and \emph<1>{\alert<2>{reputation}}.
+    \item Experimentation: \emph<1>{\alert<2>{evaluation}}.
+  \end{itemize}
+
+\end{frame}
+
+% \begin{frame}{Heterogeneity Headaches \normalshape{}\small(bis)}
+    
+%   \textbf{Case Study}: Collaborative IDSs between different organizations (cross-silo FL).
+%   \only<2->{%
+%   \begin{itemize}
+%     \item Four datasets of the litterature: CIC-CSE-IDS2018, UNSW-NB15, Bot-IoT and ToN\_IoT.
+%     \item Different ways of distributing data with various degrees of heterogeneity.
+%     \begin{itemize}
+%       \item 1 dataset IID (CIC-CSE-IDS2018).
+%       \item 1 dataset NIID along labels (CIC-CSE-IDS2018).
+%       \item 1 dataset per client.
+%     \end{itemize}
+%   \end{itemize}
+%   }
+
+%   \only<3->{%
+%     \textbf{Conclusions}~\cite{lavaur_icdcs_demo_2024}
+%   }
+%     \begin{itemize}
+%       \item<3-> \alert{Yes}, heterogeneity between participants increases performance if the datasets are complementary.
+%       \item<4-> \alert{Yes}, FL can propagate knowledge across datasets with different attack classes.
+%       \item<5-> \alert{No}, independently generated datasets cannot be aggregated \emph{as-is}.
+%     \end{itemize}
+
+%   \only<3->{\footcite*{lavaur_icdcs_demo_2024}}
+% \end{frame}

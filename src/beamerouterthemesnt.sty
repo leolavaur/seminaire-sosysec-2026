@@ -1,0 +1,209 @@
+%%
+%% This is file `beamerouterthemesnt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamerouterthemesnt.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from beamerouterthemesnt.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file beamerouterthemesnt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemesnt}[2025-09-01 v0.1.0 SnT outer theme]
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\providecommand{\tikzexternalenable}{}
+\providecommand{\tikzexternaldisable}{}
+\providecommand{\mmzUnmemoizable}{}
+\pgfkeys{
+  /snt/outer/progressbar/.cd,
+  .is choice,
+  none/.code={%
+      \setbeamertemplate{headline}[plain]
+      \setbeamertemplate{frametitle}[plain]
+      \setbeamertemplate{footline}[plain]
+    },
+  head/.code={\pgfkeys{/snt/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+  frametitle/.code={\pgfkeys{/snt/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+  foot/.code={\pgfkeys{/snt/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}%
+      }
+    },
+}
+\newlength{\snt@progressonsectionpage}
+\newlength{\snt@progressonsectionpage@linewidth}
+\newlength{\snt@progressinheadfoot}
+\newlength{\snt@progressinheadfoot@linewidth}
+\pgfkeys{
+  /snt/outer/.cd,
+  progressbarlinewidth/.code={
+      \setlength{\snt@progressonsectionpage@linewidth}{#1}
+      \setlength{\snt@progressinheadfoot@linewidth}{#1}
+    },
+  progressbarlinewidth/.default=0.8pt,
+}
+\pgfkeys{
+  /snt/outer/.cd,
+  progressbar linewidth/.code=\pgfkeysalso{progressbarlinewidth=#1},
+}
+\newcommand{\snt@outer@setdefaults}{
+  \pgfkeys{/snt/outer/.cd,
+    progressbar=none,
+    progressbar linewidth=0.8pt,
+  }
+}
+\pgfkeys{
+  /snt/outer/numbering/.cd,
+  .is choice,
+  none/.code={%
+      \PackageWarning{snt}{The ``numbering'' option is deprecated.
+        Use beamer's ``page number in head/foot'' template instead}%
+      \setbeamertemplate{page number in head/foot}[default]
+    },
+  counter/.code={%
+      \PackageWarning{snt}{The ``numbering'' option is deprecated.
+        Use beamer's ``page number in head/foot'' template instead}%
+      \setbeamertemplate{page number in head/foot}[framenumber]
+    },
+  fraction/.code={%
+      \PackageWarning{snt}{The ``numbering'' option is deprecated.
+        Use beamer's ``page number in head/foot'' template instead}%
+      \setbeamertemplate{page number in head/foot}[totalframenumber]
+    },
+}
+\setbeamertemplate{page number in head/foot}[framenumber]
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+  \begin{beamercolorbox}[
+      leftskip=4pt,%
+      rightskip=5pt,%
+      wd=\textwidth,%
+    ]{footline}%
+    \usebeamercolor[fg]{page number in head/foot}%
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}%
+    \insertshortauthor%
+    \hfill%
+    \usebeamertemplate*{page number in head/foot}\vskip4pt%
+  \end{beamercolorbox}%
+}
+\newlength{\snt@frametitle@padding}
+\setlength{\snt@frametitle@padding}{2.2ex}
+\newcommand{\snt@frametitlestrut@start}{%
+  \rule{0pt}{\snt@frametitle@padding +%
+    \totalheightof{%
+      \ifcsdef{snt@frametitleformat}{\snt@frametitleformat X}{X}%
+    }%
+  }%
+}
+
+\newcommand{\snt@frametitlestrut@end}{%
+  \vphantom{%
+    \rule[-\snt@frametitle@padding]{0pt}{\snt@frametitle@padding}%
+  }
+}
+\newcommand{\snt@frametitle@contextmarker}{%
+  \ifx\insertsubsectionhead\@empty%
+    \ifx\insertsectionhead\@empty%
+      \else%
+      \S~%
+    \fi%
+  \else%
+  %  \S\S~%
+  \fi%
+}
+\newcommand{\snt@frametitle@contexttitle}{%
+  \ifx\insertsubsectionhead\@empty%
+      \insertsectionhead%
+  \else%
+      \insertsubsectionhead%
+  \fi%
+}
+\def\insertcontexttitle{\normalfont\normalshape\footnotesize\snt@frametitle@contextmarker\snt@frametitle@contexttitle}%
+\newlength{\currentsectionwidth}
+\newlength{\maxsectionwidth}
+\defbeamertemplate{frametitle}{plain}{%
+  \settowidth{\currentsectionwidth}{\insertcontexttitle}%
+  \setlength{\maxsectionwidth}{\paperwidth-2\snt@frametitle@padding-\widthof{\insertframetitle}-1em}%
+  \nointerlineskip%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,%
+      leftskip=1.6ex,%
+      rightskip=\the\glueexpr 1.6ex plus 1fil\relax,%
+    ]{frametitle}%
+    \usebeamerfont{frametitle}%
+    \snt@frametitlestrut@start%
+    \snt@frametitleformat{\insertframetitle}%
+    {%
+      \ifx\insertframesubtitle\@empty%
+        \else%
+        {%
+          \par%
+          \usebeamerfont{framesubtitle}%
+          \vspace{-0.8ex}%
+          \usebeamercolor[fg]{framesubtitle}%
+          \insertframesubtitle%
+        }%
+      \fi
+    }%
+    \ifthenelse{\currentsectionwidth<\maxsectionwidth}{%
+      \hfill%
+      \insertcontexttitle%
+    }{}%
+    \snt@frametitlestrut@end%
+  \end{beamercolorbox}%
+}
+\setbeamertemplate{frametitle continuation}{%
+  \romannumeral\insertcontinuationcount}
+\setbeamertemplate{progress bar in head/foot}{
+  \nointerlineskip%
+  \ifnum\inserttotalframenumber=0
+    \pgfmathsetlength{\snt@progressinheadfoot}{\paperwidth}
+  \else
+    \pgfmathsetlength{\snt@progressinheadfoot}{%
+      \paperwidth * min(1,\insertframenumber/\inserttotalframenumber)%
+    }%
+  \fi
+  \begin{beamercolorbox}[wd=\paperwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \mmzUnmemoizable%
+      \fill[bg]
+      (0,0)
+      rectangle
+      (\paperwidth, \snt@progressinheadfoot@linewidth);
+      \fill[fg]
+      (0,0)
+      rectangle
+      (\snt@progressinheadfoot, \snt@progressinheadfoot@linewidth);
+    \end{tikzpicture}
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+\snt@outer@setdefaults
+\ProcessPgfPackageOptions{/snt/outer}
+\endinput
+%%
+%% End of file `beamerouterthemesnt.sty'.

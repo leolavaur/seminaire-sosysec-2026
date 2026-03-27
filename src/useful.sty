@@ -1,0 +1,17 @@
+% Personnal collection of useful LaTeX macros
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{useful}[2025-09-01 v0.1.0 Useful macros]
+
+% Properly spaced abbreviations
+\RequirePackage{xspace}
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\def\eg{\textit{e.g}\onedot} \def\Eg{\textit{E.g}\onedot}
+\def\ie{\textit{i.e}\onedot} \def\Ie{\textit{I.e}\onedot}
+\def\cf{\textit{cf}\onedot} \def\Cf{\textit{C.f}\onedot}
+\def\etc{\textit{etc}\onedot} \def\vs{\textit{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\textit{et al}\onedot}
+\makeatother
+

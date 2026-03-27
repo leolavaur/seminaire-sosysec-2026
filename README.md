@@ -1,0 +1,2 @@
+# Basic LaTeX flake template
+

@@ -1,0 +1,197 @@
+\subsection{\texorpdfstring{\logic Relationship Extraction in Distributed Events}{Relationship Extraction in Distributed Events}}
+
+\begin{frame}{The COCTEL Project}
+  \begin{block}{COCTEL: Causality-Oriented Cybersecurity TELemetry}
+    \begin{itemize}
+      \item \alert{Goal}: how to extract and represent relationships between events in highly distributed systems, to allow forward and backward reasoning about them.
+      \item Academic project, FNR funding (Luxembourgish national research fund), PI: Jérôme François (SnT).
+      \item Keywords: microservices, probabilistic logic programming, interpretable AI, explainability, causal inference.
+    \end{itemize}
+  \end{block}
+
+  \tikz[overlay, remember picture]{
+    \node[anchor=south east, xshift=-1em, yshift=1em] at (current page.south east) {%
+      \raisebox{-0.5\height}{\includegraphics[height=1.2cm]{assets/logos/SnT_UL_colour.pdf}}%
+      \hspace{-.5em}\raisebox{-0.5\height}{\includegraphics[height=1cm]{assets/logos/FNR_LOGO_BIG.pdf}}%
+    }
+  }
+\end{frame}
+
+\begin{frame}{Telemetry for tackling Partial Observability}
+  \tikz[overlay, remember picture]{
+    \node[anchor=north east, xshift=-1em, yshift=-3em] at (current page.north east) {%
+      \raisebox{-0.5\height}{\includegraphics[height=1.2cm]{figures/postdoc/logos/opentelemetry.png}}%
+    }}
+
+  \begin{block}{Definitions\footnotemark}
+    \begin{itemize}
+      \item \texttt{Telemetry} refers to the data emitted by a system.
+      \item A \texttt{trace} represents the sequence of events (\texttt{span}) that occur during the execution of a request, along with their hierarchical relationships.
+    \end{itemize}
+  \end{block}
+
+  \pause
+  \begin{figure}
+    \vspace{-1em}
+    \includestandalone[width=.9\textwidth]{figures/postdoc/telemetry_waterfall.tikz}
+    \caption{Waterfall representation of a trace.}
+  \end{figure}
+
+  % \begin{columns}[t]
+  %   \pause
+  %   \column{0.5\textwidth}
+  %   \begin{block}{Advantages}
+  %     \begin{itemize}
+  %       \item The explicit relations provided by \emph{spans} (\ie, service call events) provide a logical structure for reasoning.
+  %       \item Widely used in industry, many tools available for collection/processing.
+  %     \end{itemize}
+  %   \end{block}
+  
+  %   \pause
+  %   \column{0.5\textwidth}
+  %   \begin{block}{Limitations}
+  %     \begin{itemize}
+  %       \item Requires individual instrumentation of each service, costly.
+  %       \item Operator-dependent, monitoring can be incomplete or inconsistent.
+  %     \end{itemize}
+  %   \end{block}
+  % \end{columns}
+
+  \footnotetext{\url{https://opentelemetry.io/docs/concepts/observability-primer/}}
+\end{frame}
+
+% \begin{frame}{Telemetry representations}
+%   \begin{figure}
+%     \centering
+%     \only<1>{
+%       \includestandalone[width=\textwidth]{figures/postdoc/telemetry_waterfall.tikz}
+%       \caption{Waterfall representation of a trace.}
+%     }
+%     \only<2>{
+%       \includestandalone[width=0.8\textwidth]{figures/postdoc/telemetry_graph.tikz}
+%       \caption{Call graph for the same trace.}
+%     }
+%   \end{figure}
+% \end{frame}
+
+\begin{frame}[fragile]{Reasoning over Telemetry Data}
+  \stepcounter{beamerpauses}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Using logic programming}
+      \begin{itemize}
+        \item We can represent telemetry data as facts in a logic program.
+        \item This allows us to perform reasoning, inference, and querying over the data.
+      \end{itemize}
+      \onslide<+->{Translation is easy. How can we \alert{generalize}?}
+      
+    \end{block}
+
+    \column{0.5\textwidth}
+    \begin{minted}[fontsize=\footnotesize]{prolog}
+frontendservice("28ed4193d").
+authservice("9c8a1f2b3").
+ [...]
+parent("28ed4193d", "9c8a1f2b3").
+    \end{minted}
+
+    \begin{minted}[fontsize=\footnotesize]{prolog}
+pricingservice("34f5a6b7c").
+inventoryservice("1a2b3c4d5").
+ [...]
+follows("34f5a6b7c", "1a2b3c4d5").
+    \end{minted}
+  \end{columns}
+  
+  \bigskip\onslide<+>
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Probabilistic Logic~\normalfont\autocite{raedt_ProbLogProbabilisticProlog_2007}}
+      \begin{itemize}
+        \item Attach probabilities to rules and facts to handle uncertainty.
+      \end{itemize}
+    \end{block}
+    \column{0.5\textwidth}
+    \begin{minted}[fontsize=\footnotesize]{prolog}
+0.3::inventory_follows_cart(Inventory, Cart) :- 
+  inventoryservice(Inventory),
+  cartservice(Cart),
+  follows(Inventory, Cart).
+    \end{minted}
+
+  \end{columns}
+
+  \alt<.>{
+  \footcite*{raedt_ProbLogProbabilisticProlog_2007}
+  }{\blankfootnote{\newline}}
+\end{frame}
+
+% \begin{frame}[fragile]{Learning Logic Programs}
+%   \begin{block}{Inductive Logic Programming (ILP)}
+%     \begin{itemize}
+%       \item Subfield of machine learning that focuses on learning logic programs from examples and background knowledge.
+%       %\item Examples: FOIL (1990)~\autocite{quinlan_LearningLogicalDefinitions_1990}, Progol (1995)~\autocite{muggleton_InverseEntailmentProgol_1995}, ProbFOIL+ (2015, \emph{probabilistic})~\autocite{deraedt_InducingProbabilisticRelational_2015}, POPPER (2021)~\autocite{cropper_LearningProgramsLearning_2021a}.~*
+%     \end{itemize}
+%   \end{block}
+%   \pause
+%   \begin{columns}
+%     \column{0.5\textwidth}
+%     \includestandalone[width=\textwidth]{figures/postdoc/example_tree.tikz}
+%     \column{0.5\textwidth}
+%     \begin{block}{Example}
+%       Given all \texttt{frontend}-\texttt{frontend} service pairs as positive examples of the \texttt{relation/2} predicate:
+%     \end{block}
+%     \medskip
+%     \begin{minted}[fontsize=\footnotesize]{prolog}
+% relation(V0,V1):- parent(V0,V1).
+% relation(V0,V1):- follows(V0,V1).
+% relation(V0,V1):- follows(V2,V1),relation(V0,V2).
+%     \end{minted}
+%   \end{columns}
+% \end{frame}
+
+\begin{frame}{Highlights}
+  % \begin{block}{Telemetry naturally enables reasoning}
+  %   Provides \alert{explicit} relationships between events, that can be used for forward and backward inference.\pause{} 
+  %   Probabilistic logic can handle \alert{noisy observations} and incomplete monitoring.
+  % \end{block}
+
+  %\pause
+  \begin{block}{Interpretable by design}
+    Logic programs are \alert{human-readable} and can be easily integrated with LLMs for querying and generation.
+  \end{block}
+
+  \pause
+  \begin{block}{Generalizes well to intrusion detection}
+    Logic relationships can be used to represent complex attack patterns, including \alert{existing knowledge} (\eg, MITRE ATT\&CK).
+  \end{block}
+\end{frame}
+
+\begin{frame}{Using Logic for Model Adaptation}
+  \begin{itemize}[<+->]
+    \item Neural-symbolic AI combines symbolic reasoning or representation with neural networks.
+    \item Logic programs can be used to guide or modify the output of a neural model, allowing for \alert{model adaptation} without retraining.
+  \end{itemize}
+
+  \onslide<+->
+  \begin{table}
+    \centering
+    \caption{Fixing misclassification issues in CasinoLimit~\autocite{kilian_CasinoLimitOffensiveDataset_2025} by adding contextual logic rules using Scallop.
+    Macro-F1 on the targeted instances.}
+    \small
+    \begin{tabular}{llll}
+      \toprule
+      \textbf{Row} & \textbf{Ping (\texttt{ligolo-ng})} & \textbf{Grep (\texttt{linpeas.sh})} & \textbf{Combined} \\
+      \midrule
+      Baseline & 0.423277 & 0.423277 & 0.423277 \\
+      Logic at inference & 0.455895 (+7.71\%) & 0.488943 (+15.51\%) & 0.521561 (+23.22\%) \\
+      KL Distillation & 0.438017 (+3.48\%) & 0.533949 (+26.15\%) & 0.555552 (+31.25\%) \\
+      Logic at training & 0.444519 (+5.02\%) & 0.560168 (+32.34\%) & 0.618868 (-46.21\%) \\
+      %Relabelling & 0.444132 (+4.93\%) & 0.585468 (+38.32\%) & 0.697962 (+64.89\%) \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \alt<3>{\footcite*{kilian_CasinoLimitOffensiveDataset_2025}}{\blankfootnote{}}
+\end{frame}
+

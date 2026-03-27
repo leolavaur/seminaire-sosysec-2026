@@ -1,0 +1,168 @@
+%%
+%% This is file `beamerfontthemesnt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamerfontthemesnt.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from beamerfontthemesnt.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file beamerfontthemesnt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerfontthemesnt}[2025-09-01 v0.1.0 SnT font theme]
+\RequirePackage{etoolbox}
+\RequirePackage{pgfopts}
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{section title}{size=\Large, series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{block title alerted}{size=\normalsize, series=\bfseries}
+\setbeamerfont*{subtitle}{size=\large}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{caption name}{series=\bfseries}
+\setbeamerfont{description item}{series=\bfseries}
+\setbeamerfont{standout}{size=\Large, series=\bfseries}
+\pgfkeys{
+  /snt/font/titleformat title/.cd,
+  .is choice,
+  regular/.code={%
+      \let\snt@titleformat\@empty%
+      \setbeamerfont{title}{shape=\normalfont}%
+    },
+  smallcaps/.code={%
+      \let\snt@titleformat\@empty%
+      \setbeamerfont{title}{shape=\scshape}%
+    },
+  allsmallcaps/.code={%
+      \let\snt@titleformat\lowercase%
+      \setbeamerfont{title}{shape=\scshape}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat title=allsmallcaps can
+        lead to problems}
+    },
+  allcaps/.code={%
+      \let\snt@titleformat\uppercase%
+      \setbeamerfont{title}{shape=\normalfont}
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat title=allcaps can lead to problems%
+      }
+    },
+}
+\pgfkeys{
+  /snt/font/titleformat subtitle/.cd,
+  .is choice,
+  regular/.code={%
+      \let\snt@subtitleformat\@empty%
+      \setbeamerfont{subtitle}{shape=\normalfont}%
+    },
+  smallcaps/.code={%
+      \let\snt@subtitleformat\@empty%
+      \setbeamerfont{subtitle}{shape=\scshape}%
+    },
+  allsmallcaps/.code={%
+      \let\snt@subtitleformat\MakeLowercase%
+      \setbeamerfont{subtitle}{shape=\scshape}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat subtitle=allsmallcaps
+        can lead to problems}
+    },
+  allcaps/.code={%
+      \let\snt@subtitleformat\MakeUppercase%
+      \setbeamerfont{subtitle}{shape=\normalfont}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat subtitle=allcaps can
+        lead to problems}
+    },
+}
+\pgfkeys{
+  /snt/font/titleformat section/.cd,
+  .is choice,
+  regular/.code={%
+      \let\snt@sectiontitleformat\@empty%
+      \setbeamerfont{section title}{shape=\normalfont}%
+    },
+  smallcaps/.code={%
+      \let\snt@sectiontitleformat\@empty%
+      \setbeamerfont{section title}{shape=\scshape}%
+    },
+  allsmallcaps/.code={%
+      \let\snt@sectiontitleformat\MakeLowercase%
+      \setbeamerfont{section title}{shape=\scshape}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat section=allsmallcaps
+        can lead to problems}
+    },
+  allcaps/.code={%
+      \let\snt@sectiontitleformat\MakeUppercase%
+      \setbeamerfont{section title}{shape=\normalfont}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat section=allcaps
+        can lead to problems}
+    },
+}
+\pgfkeys{
+  /snt/font/titleformat frame/.cd,
+  .is choice,
+  regular/.code={%
+      \let\snt@frametitleformat\@empty%
+      \setbeamerfont{frametitle}{shape=\normalfont}%
+    },
+  smallcaps/.code={%
+      \let\snt@frametitleformat\@empty%
+      \setbeamerfont{frametitle}{shape=\scshape}%
+    },
+  allsmallcaps/.code={%
+      \let\snt@frametitleformat\MakeLowercase%
+      \setbeamerfont{frametitle}{shape=\scshape}%
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat frame=allsmallcaps
+        can lead to problems}
+    },
+  allcaps/.code={%
+      \let\snt@frametitleformat\MakeUppercase%
+      \setbeamerfont{frametitle}{shape=\normalfont}
+      \PackageNote{beamerthemesnt}{%
+        Be aware that titleformat frame=allcaps can lead to problems%
+      }
+    },
+}
+\pgfkeys{
+  /snt/font/.cd,
+  titleformattitle/.code=\pgfkeysalso{titleformat title=#1},
+  titleformatsubtitle/.code=\pgfkeysalso{titleformat subtitle=#1},
+  titleformatsection/.code=\pgfkeysalso{titleformat section=#1},
+  titleformatframe/.code=\pgfkeysalso{titleformat frame=#1},
+}
+\newcommand{\snt@font@setdefaults}{
+  \pgfkeys{/snt/font/.cd,
+    titleformat title=regular,
+    titleformat subtitle=regular,
+    titleformat section=regular,
+    titleformat frame=regular,
+  }
+}
+\def\snt@titleformat#1{#1}
+\def\snt@subtitleformat#1{#1}
+\def\snt@sectiontitleformat#1{#1}
+\def\snt@frametitleformat#1{#1}
+\usefonttheme[onlymath]{serif}
+\snt@font@setdefaults
+\ProcessPgfPackageOptions{/snt/font}
+\endinput
+%%
+%% End of file `beamerfontthemesnt.sty'.

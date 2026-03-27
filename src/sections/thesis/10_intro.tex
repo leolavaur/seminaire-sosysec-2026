@@ -1,0 +1,326 @@
+\newcommand<>\highlightbox[2]{%
+  \alt#3{\makebox[\dimexpr\width-2\fboxsep]{\colorbox{#1}{#2}}}{#2}%
+}
+\definecolor{chal-poison}{HTML}{1e78b4}\newcommand{\chpoison}[2][1-]{\highlightbox<#1>{chal-poison!50}{#2}}
+\definecolor{chal-qual}{HTML}{ff7f0f}\newcommand{\chqual}[2][1-]{\highlightbox<#1>{chal-qual!50}{#2}}
+\definecolor{chal-decent}{HTML}{2da02d}\newcommand{\chdecent}[2][1-]{\highlightbox<#1>{chal-decent!50}{#2}}
+\definecolor{chal-feat}{HTML}{d62727}\newcommand{\chfeat}[2][1-]{\highlightbox<#1>{chal-feat!50}{#2}}
+\definecolor{chal-hetero}{HTML}{9567bd}\newcommand{\chhetero}[2][1-]{\highlightbox<#1>{chal-hetero!50}{#2}}
+\definecolor{chal-unknown}{HTML}{8d574b}\newcommand{\chunknown}[2][1-]{\highlightbox<#1>{chal-unknown!50}{#2}}
+\definecolor{chal-transfer}{HTML}{e377c3}\newcommand{\chtransfer}[2][1-]{\highlightbox<#1>{chal-transfer!50}{#2}}
+\definecolor{chal-comm}{HTML}{7f7f7f}\newcommand{\chcomm}[2][1-]{\highlightbox<#1>{chal-comm!50}{#2}}
+
+
+\section*{Introduction}
+
+\begin{frame}{Information Security}
+  \begin{figure}
+    \includegraphics[width=.4\linewidth]{figures/thesis/intro/security.drawio.pdf}
+    \caption*{The security life-cycle \footcite{nationalinstituteofstandardsandtechnology_NISTCybersecurityFramework_2024}.}
+  \end{figure}
+
+  \footcite*{nationalinstituteofstandardsandtechnology_NISTCybersecurityFramework_2024}
+\end{frame}
+
+\begin{frame}{The Need for Collaboration}
+  \centering
+  \foreach \i in {1,...,4} {%
+    \includegraphics<\i>[width=.9\textwidth]{figures/thesis/intro/collab/collab-\i.drawio.pdf}%
+  }
+\end{frame}
+
+\begin{frame}{Collaboration in Cybersecurity}
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      \begin{itemize}
+        \item Collaboration pushed by:
+        \begin{itemize}[<+->]
+          \item common interest (\eg, inter-SOCs\footnotemark);
+          \item national agencies (\eg, NIST, ENISA, ANSSI);
+          \item regulation (\eg, private-public information sharing in NIS2).
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \centering
+      %\includegraphics<+>[width=\linewidth]{figures/thesis/intro/security-collab.drawio.pdf}%
+      \includegraphics<+->[width=\linewidth]{figures/thesis/intro/security-focus.drawio.pdf}%
+    \end{column}
+  \end{columns}
+  
+  \onslide<+>
+  \centering
+  \begin{minipage}{.6\textwidth}    
+    \begin{block}{Intrusion Detection System (IDS)}
+      \medskip
+      IDSs monitor the behavior of a system to detect malicious activities.
+    \end{block}
+  \end{minipage}
+
+  \footnotetext{Security Operational Center.}
+\end{frame}
+
+
+\begin{frame}{Machine Learning for Intrusion Detection}
+  \bigskip
+  \only<+>{}%
+  \begin{itemize}
+    \item Various types of algorithms: \alert<+->{supervised}, unsupervised, semi-supervised, reinforcement learning, \etc.
+    \item Great performance with Deep Learning (DL)\dots{}
+    \onslide<+->
+    \emph{on public datasets at least}.
+  \end{itemize}
+  \bigskip
+  
+  \onslide<+->
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+        \textbf{Challenges of local training:}
+        \begin{itemize}
+          \item not enough labelled data;
+          \item risk of local bias or skewed data distribution.
+          % \item inefficient against new attacks, especially \alert{supervised} approaches.
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.6\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{figures/thesis/intro/ml-perf}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Data Sharing to the Rescue?}
+% TODO:
+% pas assez de données, faisons un pot commun !
+% oui mais non :
+% - confidentialité des données 
+% - confiance dans le point de collecte
+% - confiance dnas le processus d'apprentissage
+% - pas de modèle de detection sans serveur
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/thesis/intro/collab.pdf}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \textbf{Let's pool our data!}\pause{} \textbf{Although\dots}
+    \begin{itemize}
+      \item Privacy concerns.
+      \item Lack of trust in the data holder.
+      \item Lack of trust in the learning process.
+      %\item Lack of incentives.
+      \item \dots
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Scaling Intrusion Detection}
+
+  \textbf{Federated Learning (FL)}
+  
+  \begin{itemize}[<+->]
+    \item Novel-\textit{ish} distributed ML paradigm (Google)~\autocite{mcmahan_Communicationefficientlearningdeep_2017}.
+    \item Distributed clients can train a common model without sharing their training data.
+    \item \alert{Privacy-preserving}: high level of abstraction for the shared models preventing data leakage.
+  \end{itemize}
+
+  \footcite*{mcmahan_Communicationefficientlearningdeep_2017}
+\end{frame}
+
+
+\begin{frame}{FL Fundamentals}
+
+  \begin{figure}
+    \centering
+    \foreach \i in {1,...,7} {%
+      \includegraphics<\i>[width=.75\linewidth]{./figures/thesis/intro/fl/\i.pdf}%
+    }
+    \caption{Typical FL workflow, applied to NIDSs.}
+  \end{figure}
+\end{frame}
+
+
+% \begin{frame}{FL for NIDSs}
+
+%   \textbf{Benefits}
+%   \begin{itemize}[<+->]
+%     \item Virtually extended dataset with Horizontal FL.
+%     \begin{itemize}[<1->]
+%       \item Better generalization.
+%       \item Reduced risk of overfitting or local bias.
+%     \end{itemize}
+    
+
+%     \item Effectively share knowledge (\eg, on specific classes, instances) between participants
+%     \begin{itemize}[<1->]
+%       \item Share the knowledge about a new attack~\autocite{lavaur_icdcs_demo_2024};
+%       \item Improve the characterization of specific devices; \dots
+%     \end{itemize}
+
+%     \only<2>{\footcite*{lavaur_icdcs_demo_2024}}
+
+%   \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{Case Study}
+  \bigskip
+  \textbf{Collaborative Intrusion Detection between Distributed Organizations}
+  \begin{itemize}[<+->]
+    \item Each organization has its own NIDS\footnote{Network-based IDS} and monitors an information system.
+    \item Objective: improve their local detection performance.
+    \item Means: \alert{expert knowledge} (\ie, datasets) and \alert{computing resources} (\ie, model training).
+  \end{itemize}
+  \medskip
+  \onslide<+>
+  \begin{figure}
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{figures/thesis/intro/mlp-workflow.pdf}}
+    \caption{Typical workflow for ML-based NIDSs.}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Case Study -- Generalization}
+  \textbf{A cross-silo use case}~\footcite{kairouz_AdvancesOpenProblems_2021}:
+  \begin{itemize}
+    \item few clients (\ie, 10--100);
+    \item substantial amount of data, high heterogeneity;
+    \item high availability, significant computing resources.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Systematic Literature Review}
+  
+  \begin{columns}
+    \begin{column}{.45\textwidth}
+      % \textbf{Systematic Literature Review (SLR)}~\autocite{lavaur_tnsm_2022}
+      % \begin{itemize}
+      %   \item Booming topic over the last 4--5 years.
+      %   \item Very heterogeneous venues and communities.
+      % \end{itemize}
+
+      \textbf{Challenges from the Literature}~\autocite{lavaur_tnsm_2022}
+      \begin{itemize}[<+->]
+        \item \textit{Functionality}: \chqual[6-]{performance}, \chhetero[6-]{heterogeneity}, \chtransfer[6-]{transferability}, self-defense, and self-healing.
+        \item \textit{Deployment}: \chunknown[6-]{adaptability} and \chdecent[6-]{scalability}.
+        \item \textit{Security and reliability}: \chpoison[6-]{security}, privacy, \chpoison[6-]{trust}, and reputation.
+        \item \textit{Experimentation}: evaluation.
+      \end{itemize}
+    \end{column}
+    \begin{column}{.55\textwidth}
+      \only<5-6>{%
+        \begin{figure}
+          \centering
+          \resizebox{\linewidth}{!}{\input{figures/thesis/intro/challenges_histogram.pgf}}
+          \caption{Challenges addressed by the literature (until 2024-04).}
+        \end{figure}
+      }
+      \only<7>{%
+        \begin{figure}
+          \centering
+          \resizebox{\linewidth}{!}{\input{figures/thesis/intro/year_histogram.pgf}}
+          \caption{Publications on FL \& IDS (until 2024-04).}
+        \end{figure}
+      }
+    \end{column}
+  \end{columns}
+
+  \footcite*{lavaur_tnsm_2022}
+\end{frame}
+
+
+\begin{frame}{Addressed Challenges}
+  
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{figures/thesis/intro/heterogeneity.png}
+        \caption{Heterogeneity headaches.}
+      \end{figure}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+
+      \textcolor<2->{lightgray}{%
+      \textbf{Challenge I}: \textit{Too much heterogeneity leads to poor performance\dots}~\only<1>{\autocite{lavaur_icdcs_demo_2024}}
+      }
+      % \only<1>{%
+      %   \begin{itemize} \small
+      %     \item How to handle different feature sets, data distributions?
+      %     \item How to consider models that are dissimilar because they "contain" relevant knowledge?
+      %   \end{itemize}
+      % }
+      \vspace{1ex}
+
+
+      \textcolor<1,3>{lightgray}{%
+      \textbf{Challenge II}: \textit{Difficult to identify malicious contributions when models are different\dots}
+      }
+      
+      % \only<2>{%
+      %   \begin{itemize} \small
+      %     \item Are model "dissimilar" because they are different, or because they are malicious/poisoned?
+      %   \end{itemize}
+      % }
+      \vspace{1ex}
+      
+      \only<1-2>{\color{lightgray}}
+      \textbf{Challenge III}: \textit{No representative dataset of heterogeneous distributed intrusion detection\dots}~\only<3>{\autocite{lavaur_cesar_2022}}
+      
+      % \only<3>{%
+      % \begin{itemize} \small
+      %     \item Datasets are generated locally, lots of different feature sets, no control over heterogeneity.
+      %   \end{itemize}
+      % }%
+    \end{column}
+  \end{columns}
+
+  \only<1>{\footcite*{lavaur_icdcs_demo_2024}}
+  \only<3>{\footcite*{lavaur_cesar_2022}}
+  
+\end{frame}
+
+
+% \begin{frame}{Research Questions}
+%   \begin{enumerate}
+%     \item What makes applying FL to IDSs specific?
+%     \item Can FL be used to federate IDSs across heterogeneous data sources?
+%     \item How does FL handle malicious contributions in a federated IDS?
+%     \item How can one assess and ensure the trustworthiness of the other participants’ contributions?
+%   \end{enumerate}
+% \end{frame}
+
+
+\begin{frame}[b]{Contributions Summary}
+  \centering%
+  \vspace{-.8cm}
+  \foreach \i in {1,...,9} {%
+    \includegraphics<\i>[width=1.1\linewidth, center]{./figures/thesis/intro/metro/\i.pdf}%
+  }
+  \includegraphics<10->[width=1.1\linewidth, center]{./figures/thesis/intro/metro/10.pdf}%
+
+  \only<11>{
+    \tikz[overlay, remember picture,
+      shift=(current page.south west),
+      x=(current page.south east),
+      y=(current page.north west)
+    ]{
+      % Optional help grid lines
+      %\draw[step=.1, opacity=0.3, thick, red] (0,0) grid (1,1);
+      
+      \node[align=left, anchor=south west] at (.025, .05) {\begin{minipage}{.8\textwidth}
+        \tableofcontents
+      \end{minipage}};
+    }
+  }
+
+\end{frame}

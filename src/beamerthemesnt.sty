@@ -1,0 +1,158 @@
+%%
+%% This is file `beamerthemesnt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamerthemesnt.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from beamerthemesnt.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file beamerthemesnt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemesnt}[2025-09-01 v0.1.0 SnT theme]
+\RequirePackage{pgfopts}
+\RequirePackage{soul}
+%\RequirePackage{biblatex}
+\pgfkeys{/snt/.cd,
+  .search also={
+      /snt/inner,
+      /snt/outer,
+      /snt/color,
+      /snt/font,
+    }
+}
+\pgfkeys{
+  /snt/titleformat plain/.cd,
+  .is choice,
+  regular/.code={%
+      \let\snt@plaintitleformat\@empty%
+      \setbeamerfont{standout}{shape=\normalfont}%
+    },
+  smallcaps/.code={%
+      \let\snt@plaintitleformat\@empty%
+      \setbeamerfont{standout}{shape=\scshape}%
+    },
+  allsmallcaps/.code={%
+      \let\snt@plaintitleformat\MakeLowercase%
+      \setbeamerfont{standout}{shape=\scshape}%
+    },
+  allcaps/.code={%
+      \let\snt@plaintitleformat\MakeUppercase%
+      \setbeamerfont{standout}{shape=\normalfont}%
+    },
+}
+\pgfkeys{
+  /snt/titleformat/.code=\pgfkeysalso{
+    font/titleformat title=#1,
+    font/titleformat subtitle=#1,
+    font/titleformat section=#1,
+    font/titleformat frame=#1,
+    titleformat plain=#1,
+  }
+}
+\newcommand{\snt@setdefaults}{
+  \pgfkeys{/snt/.cd,
+    titleformat plain=regular,
+  }
+}
+\useinnertheme{snt}
+\useoutertheme{snt}
+\usecolortheme{snt}
+\usefonttheme{snt}
+
+\newcommand{\sntoptions}[1]{\pgfkeys{/snt/.cd,#1}}
+\newcommand{\mreducelistspacing}{\vspace{-\topsep}}
+
+% Alert redefinition
+\let\origemph\alert
+\renewcommand<>{\ul}[1]{\only#2{\beameroriginal{\ul}}{#1}}
+\renewcommand<>{\alert}[1]{%
+{\usebeamercolor{alerted text}%
+  \setulcolor{fg!40!bg}%
+  \setul{-0.4ex}{0.8ex}%
+  \only#2{\bf\beameroriginal{\ul}}{\mbox{#1}}}%
+}
+
+
+% Citations
+\AtBeginDocument{%
+  \@ifpackageloaded{biblatex}{%
+    \DeclareCiteCommand{\footcite}%
+      {\usebibmacro{prenote}}%
+      {%  
+          \ifciteseen{}{%
+              \footcite*{\thefield{entrykey}}%
+          }%
+          \autocite{\thefield{entrykey}}%
+        }%
+      {\multicitedelim}%
+      {\usebibmacro{postnote}}%
+  \DeclareCiteCommand{\footcite*}%
+    {\usebibmacro{prenote}}%
+    {\usebibmacro{citeindex}%
+    \let\thefootnote\relax\footnotetext{%
+      \hspace{-0.8em}%
+      \hangindent=1.6em%
+        \mkbibbrackets{\usebibmacro{cite}}%
+        \setunit{\addnbspace}%
+        \printnames{labelname}%
+        \setunit{\labelnamepunct}%
+        \printfield[citetitle]{title}%
+        \newunit%
+        % ---
+                % Prioritize venue fields: shortjournaltitle > journaltitle > series > booktitle
+                \ifboolexpr{
+                  test {\iffieldundef{shortjournaltitle}}
+              }
+              {
+                  \ifboolexpr{
+                      test {\iffieldundef{journaltitle}}
+                  }
+                  {
+                      \ifboolexpr{
+                          test {\iffieldundef{series}}
+                      }
+                      {\printfield{booktitle}}% Fall back to booktitle if no other field is available
+                      {\printfield{series}}% Print series if defined
+                  }
+                  {\printfield{journaltitle}}% Print journaltitle if defined
+              }
+              {\printfield{shortjournaltitle}}% Print shortjournaltitle if defined
+          %}%
+            %---
+        \newunit%
+        \printfield[]{year}}%
+      \let\thefootnote\svthefootnote}
+    {}
+    {\usebibmacro{postnote}}
+  }{}%
+}
+
+\newcommand\blankfootnote[1]{%
+  \let\thefootnote\relax\footnotetext{#1}%
+  \let\thefootnote\svthefootnote%
+}
+
+\hypersetup{
+  colorlinks,
+  citecolor=sntBlue,
+  linkcolor=.,
+}
+
+\snt@setdefaults
+\ProcessPgfOptions{/snt}
+\endinput
+%%
+%% End of file `beamerthemesnt.sty'.

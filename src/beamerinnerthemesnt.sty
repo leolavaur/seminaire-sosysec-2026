@@ -1,0 +1,364 @@
+%%
+%% This is file `beamerinnerthemesnt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamerinnerthemesnt.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from beamerinnerthemesnt.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file beamerinnerthemesnt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemesnt}[2025-09-01 v0.1.0 SnT inner theme]
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+\providecommand{\tikzexternalenable}{}
+\providecommand{\tikzexternaldisable}{}
+\providecommand{\mmzUnmemoizable}{}
+\pgfkeys{
+  /snt/inner/sectionpage/.cd,
+  .is choice,
+  none/.code=\snt@disablesectionpage,
+  simple/.code={%
+      \snt@enablesectionpage%
+      \setbeamertemplate{section page}[simple]%
+    },
+  progressbar/.code={%
+      \snt@enablesectionpage%
+      \setbeamertemplate{section page}[progressbar]%
+    },
+}
+\pgfkeys{
+  /snt/inner/subsectionpage/.cd,
+  .is choice,
+  none/.code=\snt@disablesubsectionpage,
+  simple/.code={%
+      \snt@enablesubsectionpage%
+      \setbeamertemplate{section page}[simple]%
+    },
+  progressbar/.code={%
+      \snt@enablesubsectionpage%
+      \setbeamertemplate{section page}[progressbar]%
+    },
+}
+\providebool{snt@enableStandoutFooter}
+\providebool{snt@enableStandoutNumbering}
+\pgfkeys{
+  /snt/inner/standoutnumbering/.cd,
+  .is choice,
+  none/.code={
+      \boolfalse{snt@enableStandoutNumbering}
+      \boolfalse{snt@enableStandoutFooter}
+    },
+  show/.code={
+      \booltrue{snt@enableStandoutNumbering}
+      \booltrue{snt@enableStandoutFooter}
+    },
+  hide/.code={
+      \booltrue{snt@enableStandoutNumbering}
+      \boolfalse{snt@enableStandoutFooter}
+    }
+}
+\providebool{snt@titlepage@withbackground}
+\pgfkeys{
+  /snt/inner/titlepagestyle/.cd,
+  .is choice,
+  fancy/.code=\booltrue{snt@titlepage@withbackground},
+  plain/.code=\boolfalse{snt@titlepage@withbackground},
+}
+\pgfkeys{
+  /snt/inner/titlepage style/.code=\pgfkeysalso{titlepagestyle=#1},
+  titlepage style/.default=fancy,
+}
+
+\newlength{\snt@titleseparator@linewidth}
+\pgfkeys{
+  /snt/inner/.cd,
+  titleseparatorlinewidth/.code={\setlength{\snt@titleseparator@linewidth}{#1}},
+  titleseparatorlinewidth/.default=0.4pt,
+}
+\pgfkeys{
+  /snt/inner/.cd,
+  titleseparator linewidth/.code=\pgfkeysalso{titleseparatorlinewidth=#1},
+}
+\newcommand{\snt@inner@setdefaults}{
+  \pgfkeys{/snt/inner/.cd,
+    sectionpage=progressbar,
+    subsectionpage=none,
+    standoutnumbering=none,
+    titleseparator linewidth=0.4pt,
+    titlepage style=fancy,
+  }
+}
+\newcommand{\snt@titlepage@addtoplogo}{\ifbool{snt@titlepage@withbackground}{%
+\includegraphics[width=0.1\paperwidth]{assets/logos/SnT_white}%
+}{%
+\includegraphics[width=0.1\paperwidth]{assets/logos/SnT_colour}%
+}}
+
+\newcommand{\snt@titlepage@addbottomlogo}{\ifbool{snt@titlepage@withbackground}{%
+\includegraphics[width=0.22\paperwidth]{assets/logos/SnT_UL_white}%
+}{%
+\includegraphics[width=0.22\paperwidth]{assets/logos/SnT_UL_colour}%
+}}
+
+\setbeamertemplate{title page}{
+  \null%
+  \vspace{0pt plus 1.618fil}%
+  \vfil%
+  \snt@titlepage@addtoplogo\\%
+  \vspace{1ex}%
+  \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+  \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+  \expandafter\ifblank\expandafter{\beamer@andstripped}{}{%
+  \usebeamertemplate*{author}%
+  }
+  \ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+  \ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+  \vspace{0pt plus 1fil}%
+  \null
+  \begin{tikzpicture}[remember picture,overlay,shift={(current page.south east)}]
+    \node[anchor=south east] (snt-ul) {\snt@titlepage@addbottomlogo};
+    \node[anchor=south east] at (snt-ul.south west) {%
+      \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+    };
+  \end{tikzpicture}
+}
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \begingroup
+    \renewcommand\footnoterule{}%
+    \ifbool{snt@titlepage@withbackground}{%
+      \usebackgroundtemplate{\includegraphics[width=\paperwidth]{assets/backgrounds/background-normal}}%
+      \setbeamercolor{normal text}{fg=white}%
+    }{}%
+    \frame[plain,noframenumbering]{\titlepage}
+    \endgroup
+  \fi
+}
+\def\titlepage{%
+  % Apply title-page specific footnote settings
+  \renewcommand{\@makefntext}[1]{%
+    {\par\usebeamercolor[fg]{thanks}\usebeamerfont{thanks}$^{\@thefnmark}$##1\medskip}%
+  }
+  % Process the title page
+  \usebeamertemplate{title page}\@thanks
+}
+\setbeamertemplate{title graphic}{\inserttitlegraphic}
+\setbeamertemplate{title}{
+  \raggedright%
+  \snt@titleformat{\inserttitle}%
+  \par%
+}
+\setbeamertemplate{subtitle}{
+  \vspace*{0.1em}
+  \raggedright%
+  \snt@subtitleformat{\insertsubtitle}%
+  \par%
+  \vspace*{0.2em}
+}
+\setbeamertemplate{title separator}{
+  \tikzexternaldisable%
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+    \mmzUnmemoizable%
+    \fill[fg] (0,0) rectangle (\textwidth, \snt@titleseparator@linewidth);
+    \useasboundingbox (0,0) rectangle (\textwidth,-\snt@titleseparator@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+  \par%
+  \vspace*{0.8em}
+}
+\setbeamertemplate{author}{
+  \vspace*{0.5em}%
+  \raggedright%
+  \insertauthor%
+  \par
+}
+\setbeamertemplate{institute}{
+  \vspace*{1em}%
+  \insertinstitute%
+  \par
+}
+\setbeamertemplate{date}{
+  \vspace*{0.5em}%
+  \insertdate%
+  \par
+}
+\newcommand{\snt@sectionpagemarker}[1]{%
+  {\usebeamercolor[fg]{normal text}\color{fg!55!bg}\normalfont\mdseries\normalsize\makebox[0pt][r]{#1\hspace{0.55em}}}%
+}
+\defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \snt@sectionpagemarker{\S}\snt@sectiontitleformat{\insertsectionhead}\par
+  \end{center}
+  \vspace{\baselineskip - 1ex + \snt@titleseparator@linewidth}
+}
+\defbeamertemplate{section page}{progressbar}{
+  \centering
+  \begin{minipage}{0.7875\linewidth}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \snt@sectionpagemarker{\S}\snt@sectiontitleformat{\insertsection}\\[-0.5\baselineskip]
+    \usebeamertemplate*{progress bar in section page}
+  \end{minipage}
+  \par
+}
+\newcommand{\snt@disablesectionpage}{
+  \AtBeginSection{
+    % intentionally empty
+  }
+}
+\newcommand{\snt@enablesectionpage}{
+  \AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+}
+\setbeamertemplate{subsection page}{%
+  \centering
+  \begin{minipage}{0.7875\linewidth}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \ifx\insertsubsectionhead\@empty
+      \snt@sectionpagemarker{\S}\snt@sectiontitleformat{\insertsection}
+    \else
+      %\snt@sectionpagemarker{\S\S}
+      \snt@sectiontitleformat{\insertsubsection}
+    \fi\\[-0.5\baselineskip]
+    \usebeamertemplate*{progress bar in section page}
+  \end{minipage}
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west, xshift=1.6em, yshift=-1.2ex] at (current page.north west) {%
+      \usebeamercolor[fg]{normal text}%
+      \normalsize~\snt@sectionpagemarker{\S}\insertsection%
+    };
+  \end{tikzpicture}%
+}
+\newcommand{\snt@disablesubsectionpage}{
+  \AtBeginSubsection{
+    % intentionally empty
+  }
+}
+\newcommand{\snt@enablesubsectionpage}{
+  \AtBeginSubsection{
+    \ifbeamer@inframe
+      \subsectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+  }
+}
+\setbeamertemplate{progress bar in section page}{
+  \ifnum\insertmainframenumber=0
+  \pgfmathsetlength{\snt@progressonsectionpage}{\textwidth}
+\else
+  \pgfmathsetlength{\snt@progressonsectionpage}{%
+    \textwidth * min(1,\insertframenumber/\insertmainframenumber)%
+  }%
+\fi
+  \tikzexternaldisable%
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+    \mmzUnmemoizable%
+    \fill[bg]
+    (0,0)
+    rectangle
+    (\textwidth, \snt@progressonsectionpage@linewidth);
+    \fill[fg]
+    (0,0)
+    rectangle
+    (\snt@progressonsectionpage,
+    \snt@progressonsectionpage@linewidth);
+    \useasboundingbox (0,0) rectangle (\textwidth,-\snt@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+}
+\def\inserttotalframenumber{100}
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}{\raise1.5pt\hbox{\vrule width 0.8ex height 0.8ex}}
+\setbeamerfont{itemize subsubitem}{size=\tiny}
+\setbeamertemplate{itemize subsubitem}{%
+  \usebeamerfont*{itemize subsubitem}\raise1.75pt\hbox{\donotcoloroutermaths$\blacktriangleright$}%
+}
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent\raggedright \usebeamercolor{footnote}\hbox to
+  0.8em{\hfil\insertfootnotemark}\insertfootnotetext%%%
+  \par%
+}
+\define@key{beamerframe}{c}[true]{% centered
+  \beamer@frametopskip=0pt plus 1fil\relax%
+  \beamer@framebottomskip=0pt plus 1fil\relax%
+  \beamer@frametopskipautobreak=0pt plus .4\paperheight\relax%
+  \beamer@framebottomskipautobreak=0pt plus .6\paperheight\relax%
+  \def\beamer@initfirstlineunskip{}%
+}
+\providebool{snt@standout}
+\define@key{beamerframe}{standout}[true]{%
+  \booltrue{snt@standout}
+  \begingroup
+  \setkeys{beamerframe}{c}
+  \ifbool{snt@enableStandoutNumbering}{}{%
+    \setkeys{beamerframe}{noframenumbering}}
+  \ifbeamercolorempty[bg]{palette primary}{
+    \setbeamercolor{background canvas}{
+      use=palette primary,
+      bg=-palette primary.fg
+    }
+  }{
+    \setbeamercolor{background canvas}{
+      use=palette primary,
+      bg=palette primary.bg
+    }
+  }
+  \setbeamercolor{local structure}{
+    fg=palette primary.fg
+  }
+  \usebeamercolor[fg]{palette primary}
+  \setbeamercolor{page number in head/foot}{
+    use=palette primary,
+    fg=palette primary.fg
+  }
+  \ifbool{snt@enableStandoutFooter}{}{\setbeamertemplate{footline}{}}
+}
+\pretocmd{\beamer@reseteecodes}{%
+  \ifbool{snt@standout}{
+    \endgroup
+    \boolfalse{snt@standout}
+  }{}
+}{}{}
+\AtBeginEnvironment{beamer@frameslide}{
+  \ifbool{snt@standout}{
+    \centering
+    \usebeamerfont{standout}
+  }{}
+}
+\snt@inner@setdefaults
+\ProcessPgfPackageOptions{/snt/inner}
+\endinput
+%%
+%% End of file `beamerinnerthemesnt.sty'.

@@ -1,0 +1,153 @@
+%%
+%% This is file `beamercolorthemesnt.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamercolorthemesnt.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from beamercolorthemesnt.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file beamercolorthemesnt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemesnt}[2025-09-01 v0.1.0 SnT color theme]
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /snt/color/block/.cd,
+  .is choice,
+  transparent/.code=\snt@block@transparent,
+  fill/.code=\snt@block@fill,
+}
+\pgfkeys{
+  /snt/color/background/.cd,
+  .is choice,
+  dark/.code=\snt@colors@dark,
+  light/.code=\snt@colors@light,
+}
+\newcommand{\snt@color@setdefaults}{
+  \pgfkeys{/snt/color/.cd,
+    background=light,
+  }
+}
+%%\definecolor{mDarkBrown}{HTML}{604c38}
+%%\definecolor{mDarkTeal}{HTML}{23373b}
+%%\definecolor{mLightBrown}{HTML}{EB811B}
+%%\definecolor{mLightGreen}{RGB}{0,128,128}
+
+\definecolor{sntRed}{RGB}{228, 30, 10}
+\definecolor{sntPurple}{RGB}{88, 31, 126}
+\definecolor{sntBlue}{RGB}{0, 114, 206}
+\definecolor{sntNeutralGray}{RGB}{86, 86, 86}
+\definecolor{sntBlack}{RGB}{0, 0, 0}
+\definecolor{sntWhite}{RGB}{255, 255, 255}
+\newcommand{\snt@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=sntWhite,
+    bg=sntNeutralGray
+  }
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\snt@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=sntNeutralGray,
+    bg=sntWhite
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=sntBlue
+}
+\setbeamercolor{example text}{%
+  fg=sntPurple
+}
+\setbeamercolor{titlelike}{use=normal text, parent=normal text}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{%
+  use=normal text, fg=normal text.fg!80!normal text.bg}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+\setbeamercolor{thanks}{%
+  use=normal text,fg=normal text.fg!80!normal text.bg}
+\setbeamercolor{palette primary}{%
+  use=normal text,
+  fg=normal text.bg,
+  bg=normal text.fg
+}
+\setbeamercolor{frametitle}{%
+  use=palette primary,
+  parent=palette primary
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\snt@block@transparent}{
+  \setbeamercolor{block title}{bg=}
+  \setbeamercolor{block body}{bg=}
+  \setbeamercolor{block title alerted}{bg=}
+  \setbeamercolor{block title example}{bg=}
+}
+\newcommand{\snt@block@fill}{
+  \setbeamercolor{block title}{%
+    bg=normal text.bg!80!fg
+  }
+  \setbeamercolor{block body}{%
+    use=block title,
+    bg=block title.bg!50!normal text.bg
+  }
+  \setbeamercolor{block title alerted}{%
+    bg=block title.bg,
+  }
+  \setbeamercolor{block title example}{%
+    bg=block title.bg,
+  }
+}
+\setbeamercolor{block title}{%
+  use=normal text,
+  fg=normal text.fg
+}
+\setbeamercolor{block title alerted}{%
+  use={block title, alerted text},
+  fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+  use={block title, example text},
+  fg=example text.fg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{bibliography entry author}{fg=, bg=}
+\setbeamercolor{bibliography entry title}{fg=, bg=}
+\setbeamercolor{bibliography entry location}{fg=, bg=}
+\setbeamercolor{bibliography entry note}{fg=, bg=}
+\snt@color@setdefaults
+\ProcessPgfPackageOptions{/snt/color}
+\mode<all>
+\endinput
+%%
+%% End of file `beamercolorthemesnt.sty'.
