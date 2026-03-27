@@ -4,7 +4,7 @@
   \stepcounter{beamerpauses}
 
   \begin{block}{Client-specific objectives}
-    \textit{Learn globally, but optimize locally.} Facilitate collaboration while respecting client-specific constraints.
+    \textit{Learn globally, then adapt locally.} Facilitate collaboration while respecting client-specific constraints.
   \end{block}
 
   \pause
@@ -17,11 +17,15 @@
 
   \pause
   \begin{block}{Allowing distributed reasoning}
-    \begin{itemize}[<+->]
-      \item Problem: Logic programs might be too explicit to be shared (privacy concerns due to semantic richness)\dots \onslide<+->\emph{inapplicable to federated learning?}.
-      \item Solution: use distributed representation learning to learn a shared embedding space for logic predicates, allowing for \alert{confidential} distributed reasoning.
-    \end{itemize}
+    Logic programs might hold too much semantics to be shared (privacy concerns).\pause{} $\Rightarrow$ Use federated learning to learn a shared embedding space for logic predicates, allowing for \alert{confidential} distributed reasoning.
   \end{block}
+
+
+  %   \begin{itemize}[<+->]
+  %     \item Problem: Logic programs might be too explicit to be shared (privacy concerns due to semantic richness)\dots \onslide<+->\emph{inapplicable to federated learning?}.
+  %     \item Solution: use distributed representation learning to learn a shared embedding space for logic predicates, allowing for \alert{confidential} distributed reasoning.
+  %   \end{itemize}
+  % \end{block}
   
 \end{frame}
 
